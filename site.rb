@@ -9,7 +9,7 @@ get '/about' do
   @name = 'Wei'
 
   @seconds_old = Time.now - Time.local(1984, 4, 20)
-  @age = @seconds_old / 365 / 24 / 60 / 60
+  @age = @seconds_old / 365.25 / 24 / 60 / 60
   erb :about
 end
 
