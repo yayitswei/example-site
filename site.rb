@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'sinatra'
 
+MENU = {:home => '/',
+        :about => '/about',
+        :work => '/work'}
+
 get '/' do
   erb :home
 end
