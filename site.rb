@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'sinatra'
 
-MENU = {:home => '/',
-        :about => '/about',
-        :work => '/work'}
+MENU = [:home, :about, :work, :contact]
+ROUTING = {:home => '/',
+           :about => '/about',
+           :work => '/work',
+           :contact => '/contact'}
 
 get '/' do
   erb :home
@@ -19,6 +21,10 @@ end
 
 get '/work' do
   erb :work
+end
+
+get '/contact' do
+  erb :contact
 end
 
 not_found do

@@ -13,7 +13,6 @@
         padding-top: 60px;
       }
     </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
   </head>
 
   <body>
@@ -30,7 +29,8 @@
           <a class="brand" href="#">Twitter Bootstrap Test</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <% MENU.each_pair do |item, route| %>
+              <% MENU.each do |item| %>
+                <% route = ROUTING[item] %>
                 <li class="<%= 'active' if request.path_info == route %>">
                   <a href="<%= route %>"><%= item.to_s.capitalize %></a>
                 </li>
