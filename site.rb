@@ -1,32 +1,38 @@
 require 'rubygems'
 require 'sinatra'
 
-MENU = [:home, :about, :work, :contact]
-ROUTING = {:home => '/',
-           :about => '/about',
-           :work => '/work',
-           :contact => '/contact'}
+class Site < Sinatra::Base
+  MENU = [:home, :about, :work, :contact]
+  ROUTING = {:home => '/',
+             :about => '/about',
+             :work => '/work',
+             :contact => '/contact'}
 
-get '/' do
-  erb :home
-end
+  get '/' do
+    erb :home
+  end
 
-get '/about' do
-  @name = 'Wei'
+  get '/about' do
+    @name = 'Wei'
 
-  @seconds_old = Time.now - Time.local(1984, 4, 20)
-  @age = @seconds_old / 365.25 / 24 / 60 / 60
-  erb :about
-end
+    @seconds_old = Time.now - Time.local(1984, 4, 20)
+    @age = @seconds_old / 365.25 / 24 / 60 / 60
+    erb :about
+  end
 
-get '/work' do
-  erb :work
-end
+  get '/work' do
+    erb :work
+  end
 
-get '/contact' do
-  erb :contact
-end
+  get '/contact' do
+    erb :contact
+  end
 
-not_found do
-  '404!'
+  not_found do
+    '404!'
+  end
+
+  get '/blog' do
+    pass
+  end
 end
