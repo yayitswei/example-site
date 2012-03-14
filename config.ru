@@ -11,10 +11,31 @@
 
 require 'sinatra/base'
 require './site'
+require 'logger'
 
 require 'nesta/env'
 Nesta::Env.root = ::File.expand_path('./blog')
 
 require 'nesta/app'
 
-run Rack::Cascade.new [Site, Nesta::App]
+logger = Logger.new('log/app.log')
+
+#create a rack app
+app = Rack::Builder.new do
+  use Rack::CommonLogger, logger
+
+  map '/blog' do
+    run Nesta::App
+  end
+
+  #map all the other requests to sinatra
+  map '/' do
+    run Nesta::App
+  end
+end.to_app
+
+use Rack::CommonLogger, logger
+run app
+
+
+#run Rack::Cascade.new [Site, Nesta::App]
