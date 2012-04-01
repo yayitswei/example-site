@@ -1,12 +1,17 @@
 require 'rubygems'
 require 'sinatra'
+require 'logger'
 
 class Site < Sinatra::Base
+  enable :logging, :dump_errors, :raise_errors
+
   MENU = [:home, :about, :work, :contact]
   ROUTING = {:home => '/',
              :about => '/about',
              :work => '/work',
-             :contact => '/contact'}
+             :contact => '/contact',
+             :bday => '/bday'
+            }
 
   get '/' do
     erb :home
@@ -30,6 +35,10 @@ class Site < Sinatra::Base
 
   not_found do
     '404!'
+  end
+
+  get '/bday' do
+    erb :bday
   end
 
   get '/blog' do

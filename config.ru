@@ -15,14 +15,23 @@ require 'logger'
 
 require 'nesta/env'
 Nesta::Env.root = ::File.expand_path('./blog')
+Nesta::Env.root = ::File.expand_path('./blog')
+
+set :environment, :development
+disable :run
 
 require 'nesta/app'
 
-logger = Logger.new('log/app.log')
-
 #create a rack app
 app = Rack::Builder.new do
-  use Rack::CommonLogger, logger
+  enable :logging, :dump_errors, :raise_errors
+  set :show_exceptions, true if development?
+  logger = ::File.open('log/development.log', 'a+')
+  puts "HELLO WORLD"
+  puts development?
+
+  Nesta::App.use Rack::CommonLogger, logger
+  Site.use Rack::CommonLogger, logger
 
   map '/blog' do
     run Nesta::App
@@ -30,12 +39,9 @@ app = Rack::Builder.new do
 
   #map all the other requests to sinatra
   map '/' do
-    run Nesta::App
+    run Site
   end
 end.to_app
 
-use Rack::CommonLogger, logger
+
 run app
-
-
-#run Rack::Cascade.new [Site, Nesta::App]
