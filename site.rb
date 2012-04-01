@@ -40,10 +40,6 @@ class Site < Sinatra::Base
     '404!'
   end
 
-  get '/bday' do
-    erb :bday
-  end
-
   get '/blog' do
     pass
   end
