@@ -3,7 +3,10 @@ require 'sinatra'
 require 'logger'
 
 class Site < Sinatra::Base
+
   enable :logging, :dump_errors, :raise_errors
+  set :show_exceptions, true if development?
+  logger = ::File.open('log/development.log', 'a+')
 
   MENU = [:home, :about, :work, :contact]
   ROUTING = {:home => '/',
